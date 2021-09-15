@@ -3,20 +3,25 @@ package org.acme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ApplicationScoped
-@Path("/sample")
-public class SampleResource {
+@Path("/callback")
+public class CallbackResource {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CallbackResource.class);
 
     private final Map<String, Map<String, Object>> dirtyCache = new ConcurrentHashMap<>();
+
+    @GET
+    @Path("/hello")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello RESTEasy";
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
